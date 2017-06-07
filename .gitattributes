@@ -1,2 +1,3 @@
-*.rb diff=ruby
-*.gemspec diff=ruby
+*.rb linguist-language=ruby
+*.gemspec linguist-language=ruby
+public linguist-vendored
