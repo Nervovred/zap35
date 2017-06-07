@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  vendor_id: 1
+  part_category_id: 1
+  article: MyString
+  title: MyString
+  dimension: MyString
+  buy_price: 9.99
+  margin: 9.99
+  sell_price: 1
+
+two:
+  vendor_id: 1
+  part_category_id: 1
+  article: MyString
+  title: MyString
+  dimension: MyString
+  buy_price: 9.99
+  margin: 9.99
+  sell_price: 1

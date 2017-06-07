@@ -1,0 +1,21 @@
+<h1>Поставщики</h1>
+
+<table id="vendors">
+	<thead>
+		<tr>
+			<th>Название</td>
+			<th colspan="3">Действия</td>
+		</tr>
+	</thead>
+	<tbody>
+		<% @vendors.each do |ven| %>
+			<%= content_tag_for(:tr, ven) do %>
+				<td><%= ven.title %></td>
+				<td><%= link_to 'Просмотр', admin_vendor_path(ven) %></td>
+				<td><%= link_to 'Изменить', edit_admin_vendor_path(ven) %></td>
+				<td><%= link_to 'Удалить', admin_vendor_path(ven), :method => :delete, :confirm => 'Вы уверены?' %></td>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>
+<%= link_to 'Добавить', new_admin_vendor_path %>

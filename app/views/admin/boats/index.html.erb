@@ -1,0 +1,30 @@
+<h2>Лодки</h2>
+<%= form_tag update_prices_admin_boats_path do %>
+<% @boat_categories.each do |bc| %>
+	<table id="boats_<%= bc.id%>">
+		<thead>
+			<tr>
+				<th colspan="5"><%= bc.title %></th>
+			</tr>
+			<tr>
+				<th>Модель</td>
+				<th>Цена</th>
+				<th colspan="3">Действия</td>
+			</tr>
+		</thead>
+		<tbody data-update-url="<%= sort_admin_boats_path(:boat_category_id => bc.id) %>">
+			<% bc.boats.each do |b| %>
+				<%= content_tag_for(:tr, b) do %>
+					<td><%= b.model %></td>
+					<td><%= text_field_tag "boats[#{b.id}][price]", b.price %></td>
+					<td><%= link_to 'Просмотр', admin_boat_path(b) %></td>
+					<td><%= link_to 'Изменить', edit_admin_boat_path(b) %></td>
+					<td><%= link_to 'Удалить', admin_boat_path(b), :method => :delete, :confirm => 'Вы уверены?' %></td>
+				<% end %>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>
+<%= submit_tag 'Обновить цены' %>
+<% end %>
+<%= link_to 'Добавить', new_admin_boat_path %>

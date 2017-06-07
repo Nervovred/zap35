@@ -1,0 +1,9 @@
+<h2>Редактирование способа оплаты</h2>
+
+<%= form_for @payment_method, :url => admin_payment_method_path(@payment_method), :method => :put do |f| -%>
+  <p>
+    <%= f.label :title, 'Название' %><br/>
+    <%= f.text_area :title %>
+  </p>
+  <%= f.submit "Сохранить" %> или <%= link_to 'Отменить', admin_payment_method_path %>
+<% end -%>

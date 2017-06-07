@@ -1,0 +1,85 @@
+<div id="filter">
+	<%= form_tag '/lodochnie_motory', :remote => true do %>
+	<ul class="top_level">
+		<li>
+			<span class="heading">Производитель</span>
+			<ul class="element">
+				<% @categories.each do |cat| %>
+					<li><%= check_box_tag "filter[categories][]", cat.id, @filtered && !@filtered['categories'].nil? && @filtered['categories'].include?(cat.id.to_s), :id => "category-#{cat.id}" %> <label for=<%="category-#{cat.id}"%>><%= cat.title %></label></li>
+				<% end %>
+			</ul>
+		</li>
+		<li>
+			<span class="heading">Тип</span>
+			<ul class="element">
+				<li>
+					<%= check_box_tag "filter[strokes_type][]", 2, @filtered && !@filtered['strokes_type'].nil? && @filtered['strokes_type'].include?("2"), :id => "strokes_type-2" %> 
+					<label for="strokes_type-2">
+						2-тактные
+					</label>
+				</li>
+				<li>
+					<%= check_box_tag "filter[strokes_type][]", 4, @filtered && !@filtered['strokes_type'].nil? && @filtered['strokes_type'].include?("4"), :id => "strokes_type-4" %> 
+					<label for="strokes_type-4">
+						4-тактные
+					</label>
+				</li>				
+			</ul>
+		</li>
+		<li>
+			<span class="heading">Мощность, л.с.</span>
+			<ul class="element">
+				<li>
+					<%= text_field_tag 'filter[power_range][minval]', @filtered && @filtered["power_range"]["minval"] ? @filtered["power_range"]["minval"] : @min_power %> - 
+					<%= text_field_tag 'filter[power_range][maxval]', @filtered && @filtered["power_range"]["maxval"] ? @filtered["power_range"]["maxval"] : @max_power %>
+				</li>
+				<li>
+					<div id="slider-power"></div>
+				</li>
+			</ul>
+		</li>		
+		<li>
+			<span class="heading">Цена</span>
+			<ul class="element">
+				<li>
+					<%= text_field_tag 'filter[price_range][minval]', @filtered && @filtered["price_range"]["minval"] ? @filtered["price_range"]["minval"] : @min_price*1000 %> - 
+					<%= text_field_tag 'filter[price_range][maxval]', @filtered && @filtered["price_range"]["maxval"] ? @filtered["price_range"]["maxval"] : @max_price*1000 %>
+				</li>
+				<li>
+					<div id="slider-price"></div>
+				</li>
+			</ul>
+		</li>		
+		<li style="text-align:center"><%= submit_tag 'Показать', :class => 'button_medium submit_link' %></li>
+	</ul>
+	<% end %>
+</div>
+
+<% content_for :javascript do %>
+	<script>
+	  $(function() {
+	    $("#slider-price").slider({
+				range: true,
+	      min: <%= @min_price %>,
+	      max: <%= @max_price %>,
+	      values: [ <%= @filtered && @filtered["price_range"]["minval"] ? (@filtered["price_range"]["minval"].to_f / 1000).floor : @min_price %>, 
+	      					<%= @filtered && @filtered["price_range"]["maxval"] ? (@filtered["price_range"]["maxval"].to_f / 1000).ceil : @max_price %>],
+	    	slide: function( event, ui ) {
+        	$("#filter_price_range_minval").val(parseInt(ui.values[0])*1000);
+        	$("#filter_price_range_maxval").val(parseInt(ui.values[1])*1000);
+      	}}
+	    );
+	    $("#slider-power").slider({
+				range: true,
+	      min: <%= @min_power %>,
+	      max: <%= @max_power %>,
+	      values: [ <%= @filtered && @filtered["power_range"]["minval"] ? (@filtered["power_range"]["minval"].to_f).floor : @min_power %>, 
+	      					<%= @filtered && @filtered["power_range"]["maxval"] ? (@filtered["power_range"]["maxval"].to_f).ceil : @max_power %>],
+	    	slide: function( event, ui ) {
+        	$("#filter_power_range_minval").val(parseInt(ui.values[0]));
+        	$("#filter_power_range_maxval").val(parseInt(ui.values[1]));
+      	}}
+	    );	    
+	  });
+	</script>
+<% end %>

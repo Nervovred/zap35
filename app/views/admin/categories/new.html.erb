@@ -1,0 +1,13 @@
+<h2>Новая категория</h2>
+
+<%= form_for @category, :url => admin_categories_path do |f| -%>
+  <p>
+  	<%= f.label :title, 'Название' %>
+  	<%= f.text_field :title %>
+  </p>
+  <p>
+  	<%= f.label :partial, 'Служебная метка' %>
+  	<%= f.text_field :partial %>
+  </p>    
+  <%= f.submit "Сохранить" %> или <%= link_to 'Отменить', admin_categories_path %>
+<% end -%>

@@ -1,0 +1,41 @@
+<h1>Поступил новый заказ</h1>
+
+<div id="cart">
+  <table class="cart_table">
+  <tr>
+    <th>Наименование</th>
+    <th>Закуп</th>
+    <th>Цена</th>
+    <th>Количество</th>
+    <th>Сумма</th>
+  </tr>
+  <% @checkout.cart_items.each do |ci|%>
+    <tr id="cart_item-tr-<%=ci.id%>">
+      <td class="title"><%= ci.cartable.cart_item_title %></td>
+      <td><%= ci.buy_price %></td>
+      <td class="price"><%= number_to_currency(ci.price, :delimiter => ' ', :unit => 'р.', :format => "%n %u", :precision => 0) %></td>
+      <td class="quantity" id="cart_item-td-<%=ci.id%>"><%= ci.quantity %></td>
+      <td class="sum" id='cart_item-total-<%=ci.id%>'><%= ci.total %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td colspan="4"><strong>Итого</strong></td>
+    <td id="total_sum"><%= number_to_currency(@checkout.total, :delimiter => ' ', :unit => 'р.', :format => "%n %u", :precision => 0) %></td>
+  </tr>
+  </table>
+</div>
+
+<% if @checkout.payment_method %>
+<p>Предпочтительный метод оплаты:</p>
+<p><%= @checkout.payment_method.title %></p>
+<% end %>
+
+<% if @checkout.delivery_method %>
+<p>Предпочтительный метод доставки:</p>
+<p><%= @checkout.delivery_method.title%></p>
+<% end %>
+
+<h2>Контактные данные:</h2>
+<p>Имя: <%= @checkout.name %></p>
+<p>Телефон: <%= @checkout.phone %></p>
+<p>Email: <%= @checkout.email %></p>

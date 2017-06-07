@@ -1,0 +1,12 @@
+$.colorbox.close();
+var itemsCount = itemsCount || parseInt($('#cart_count').text()) || 0;
+$('#cart-count-header').html(itemsCount + 1);
+$('#cart_span').effect("highlight", {color: '#fff'}, 500);
+if (itemsCount == 0) {
+	$('#cart_count').html(1);
+	$('#cart_count').show();
+} else {
+	$('#cart_count').html(itemsCount + 1);
+};
+$('#cart_count').effect("highlight", {color: '#fff'}, 500);
+itemsCount = itemsCount + 1

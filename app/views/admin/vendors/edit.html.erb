@@ -1,0 +1,9 @@
+<h2>Редактирование поставщика</h2>
+
+<%= form_for @vendor, :url => admin_vendor_path(@vendor), :method => :put do |f| -%>
+  <p>
+  	<%= f.label :title, 'Название' %>
+  	<%= f.text_field :title %>
+  </p>
+  <%= f.submit "Сохранить" %> или <%= link_to 'Отменить', admin_vendors_path %>
+<% end -%>

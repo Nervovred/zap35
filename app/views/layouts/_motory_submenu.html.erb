@@ -1,0 +1,6 @@
+<div id='submenu'>
+	<ul id='motory_menu' class='submenu' <% if request.path.match('lodochnie_motory') || (@return_if_fail && @return_if_fail.match('lodochnie_motory'))%> style='display:block;'<% end %>>
+		<%= content_tag :li ,(link_to 'Лодочные моторы SEA-PRO', '/lodochnie_motory/sea_pro', :class => is_active?('lodochnie_motory/sea_pro')) %>
+		<%= content_tag :li ,(link_to 'Лодочные моторы Marlin', '/lodochnie_motory/marlin', :class => is_active?('lodochnie_motory/marlin')) %>
+	</ul>
+</div>

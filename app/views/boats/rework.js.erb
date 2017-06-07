@@ -1,0 +1,10 @@
+<% if params[:page] %>
+	$('#boats-list').append("<%= escape_javascript (render :partial => 'boats/boats', :locals => {:boats => @boats}) %>");
+<% else %>
+	$('#boats-list').html("<%= escape_javascript (render :partial => 'boats/boats', :locals => {:boats => @boats}) %>");
+<% end %>
+<% if !@filtered.nil? %>
+	$('#load-more').html("<%= escape_javascript link_to 'Загрузить ещё', lodki_path(:page => @boats.next_page, :filter => @filtered), :remote => true, :class => 'button_medium' if @boats.next_page %>");
+<% else %>
+	$('#load-more').html("<%= escape_javascript link_to 'Загрузить ещё', lodki_path(:page => @boats.next_page), :remote => true, :class => 'button_medium' if @boats.next_page %>");
+<% end %>

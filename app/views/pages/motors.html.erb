@@ -1,0 +1,33 @@
+<h1>Лодочные моторы</h1>
+<% @categories.each do |category| %>
+	<% if !category.motors.empty? %>
+		<h2>Лодочные моторы <%= category.title %></h1>
+		<% if !category.two_stroke_motors.empty? %>
+			<h2>Двухтактные</h2>
+			<ul class="product-listing">
+			<% category.two_stroke_motors.active.by_price.each do |m| %>
+				<%= render :partial => '/common/motor_cell', :locals => {:m => m, :category => category} %>
+			<% end %>
+			</ul>
+		<% end %>
+		<div style="clear:both"></div>
+		<% if !category.four_stroke_motors.empty? %>
+			<h2>Четырехтактные</h2>
+			<ul class="product-listing">
+			<% category.four_stroke_motors.active.by_price.each do |m| %>
+				<%= render :partial => '/common/motor_cell', :locals => {:m => m, :category => category} %>
+			<% end %>
+			</ul>
+		<% end %>
+		<div style="clear:both"></div>
+		<br/>
+	<% end %>
+<% end %>
+
+<% content_for :javascript do %>
+	<script>
+		$(function(){
+			$(".ajax").colorbox();
+		});
+	</script>
+<% end %>

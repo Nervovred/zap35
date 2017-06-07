@@ -1,0 +1,8 @@
+<li>
+	<%= link_to "#{category.title} #{m.model}", motor_path(m), :target => '_blank' %>
+	<div class="product-image-wrapper">
+		<%= link_to (image_tag m.images[0].picture.url(:cell)), motor_path(m), :target => '_blank' %>
+	</div>
+	<%= link_to number_to_currency(m.price, :delimiter => ' ', :unit => 'р.', :format => "%n %u", :precision => 0), motor_path(m), :target => '_blank'%>
+	<%= link_to "В корзину", add_to_cart_path(:item_id => m.id, :item_type => 'Motor'), :remote => true, :rel => 'nofollow', :class => 'button_large' %>	
+</li>

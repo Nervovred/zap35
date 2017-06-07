@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  vendor_id: 1
+  part_category_id: 1
+  price_file: 
+
+two:
+  vendor_id: 1
+  part_category_id: 1
+  price_file: 

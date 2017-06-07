@@ -1,0 +1,26 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: zapchasti_development
+  host: localhost
+  pool: 5
+  username: #put username
+  password: #put password
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: zapchasti_test
+  host: localhost
+  pool: 5
+  username: #put username
+  password: #put password
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: zapchasti_production
+  host: localhost
+  pool: 5
+  username: #put username
+  password: #put password

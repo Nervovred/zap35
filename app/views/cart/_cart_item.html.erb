@@ -1,0 +1,7 @@
+<% if ci.quantity <= 1 %>
+<span class="quantity_link"><</span>
+<% else %>
+<%= link_to "<", remove_quantity_path(:id => ci.id), :remote => true, :class => 'quantity_link', :disabled => ci.quantity < 1 ? "true" : "" %>
+<% end %> 
+<%= ci.quantity %>
+<%= link_to ">", add_quantity_path(:id => ci.id), :remote => true, :class => 'quantity_link' %>

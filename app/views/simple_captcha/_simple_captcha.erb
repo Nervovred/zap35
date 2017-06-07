@@ -1,0 +1,10 @@
+<div class="form_row">
+  <div class="form_label">
+    <label for="captcha">Код с картинки</label>
+  </div>
+  <div class="form_field" style="display:inline;">
+    <span id='captcha_image'><%= simple_captcha_options[:image] %></span>
+    <span style='margin-bottom:10px;'><%= link_to image_tag("refresh-icon_32.gif"), "#", :id => 'refresh_captcha', :title => 'Обновить' %></span>
+    <span><%= simple_captcha_options[:field] %></span>    
+  </div>
+</div>

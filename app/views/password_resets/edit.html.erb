@@ -1,0 +1,38 @@
+<h1>Сброс пароля</h1>
+
+<%= form_for @user, :url => password_reset_path(params[:id]) do |f| %>
+  <% if @user.errors.any? %>
+    <div class="error_messages">
+      <% @user.errors.messages.values.each do |values| %>
+        <% values.each do |message| %>
+          <p><%= message %></p>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :password, 'Пароль' %><br/>
+    <%= f.password_field :password, :class => 'validate[required]' %>
+  </div>
+  <div class="field">
+    <%= f.label :password_confirmation, 'Подтверждение пароля' %><br/>
+    <%= f.password_field :password_confirmation, :class => 'validate[required, equals[user_password]]' %>
+  </div>
+  <div class="actions"><%= f.submit "Сохранить" %></div>
+<% end %>
+
+
+<%= content_for :javascript do %>
+<script>
+  $(function(){
+    $('#edit_user_<%=@user.id%>').validationEngine('attach', {promptPosition: 'topRight'});
+  <% if @user.errors.any? %> 
+    <% construct_errors(@user.errors.messages, 'user').each do |key, values| %>
+      <% values.each do |val| %>
+        $('<%=j key %>').validationEngine('showPrompt', '<%=j val %>', 'error', 'topRight');
+      <% end %>
+    <% end %>
+  <% end %>    
+  });
+</script>
+<% end %>

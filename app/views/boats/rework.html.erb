@@ -1,0 +1,33 @@
+<div class="pull_left"><h1>Лодки ПВХ</h1></div>
+<div class="pull_right"><div id="ajax-loader"><%= image_tag ('ajax-loader.gif') %></div></div>
+<div class="clear"></div>
+<%= render :partial => 'boats/filter' %>
+<div class="product-listing">
+	
+	<ul id="boats-list">
+		<%= render :partial => 'boats/boats', :locals => {:boats => @boats} %>
+	</ul>
+	<div id="load-more" style='text-align:center;'>
+		<% if !@filtered.nil? %>
+			<%= link_to 'Загрузить ещё', lodki_path(:page => @boats.next_page, :filter => @filtered), :remote => true, :class => 'button_medium' if @boats.next_page %>
+		<% else %>
+			<%= link_to 'Загрузить ещё', lodki_path(:page => @boats.next_page), :remote => true, :class => 'button_medium' if @boats.next_page %>
+		<% end %>
+	</div>
+</div>
+
+<% content_for :javascript do %>
+	<script>
+		$(function(){
+			$(".ajax").colorbox();
+			$('#ajax-loader').hide();  // hide it initially.
+			  $(document)  
+			    .ajaxStart(function() {
+			      $('#ajax-loader').show(); // show on any Ajax event.
+			    })
+			    .ajaxStop(function() {
+			      $('#ajax-loader').hide(); // hide it when it is done.
+			  });			
+		});
+	</script>
+<% end %>

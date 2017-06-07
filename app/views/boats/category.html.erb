@@ -1,0 +1,38 @@
+<% content_for :javascript do %>
+	<script>
+		$(function(){
+			$(".ajax").colorbox();
+		});
+	</script>
+<% end %>
+<h1><%= @category.menu_title %></h1>
+
+<% if !@motor_boats.empty? %>
+	<h2>Моторные лодки</h2>
+	<ul class="product-listing">
+		<% @motor_boats.each do |b| %>
+			<li>
+				<%= link_to b.model, boat_with_category_path(:category => @category.url_title, :url_title => b.url_title), :class => 'ajax cboxElement' %>
+				<div class="product-image-wrapper">
+					<%= link_to (image_tag b.images[0].picture.url(:cell)), boat_with_category_path(:category => @category.url_title, :url_title => b.url_title), :class => 'ajax cboxElement' %>
+				</div>
+				<%= link_to number_to_currency(b.price, :delimiter => ' ', :unit => 'р.', :format => "%n %u", :precision => 0), boat_with_category_path(:category => @category.url_title, :url_title => b.url_title), :class => 'info ajax cboxElement' %>
+			</li>
+		<% end %>
+	</ul>
+<% end %>
+<div style="clear:both"></div>
+<% if !@non_motor_boats.empty? %>
+	<h2>Гребные лодки</h2>
+	<ul class="product-listing">
+		<% @non_motor_boats.each do |b| %>
+			<li>
+				<%= link_to b.model, boat_with_category_path(:category => @category.url_title, :url_title => b.url_title), :class => 'ajax cboxElement' %>
+				<div class="product-image-wrapper">
+					<%= link_to (image_tag b.images[0].picture.url(:cell)), boat_with_category_path(:category => @category.url_title, :url_title => b.url_title), :class => 'ajax cboxElement' %>
+				</div>
+				<%= link_to number_to_currency(b.price, :delimiter => ' ', :unit => 'р.', :format => "%n %u", :precision => 0), boat_with_category_path(:category => @category.url_title, :url_title => b.url_title), :class => 'info ajax cboxElement' %>
+			</li>
+		<% end %>
+	</ul>
+<% end %>

@@ -1,0 +1,37 @@
+<h2>Новый Мотор</h2>
+
+<%= form_for @motor, :url => admin_sea_pro_motors_path, :html => { :multipart => true } do |f| -%>
+	<div class='left_column_form'>
+		<%= f.hidden_field :newish %>
+		<div class='form_row'>
+			<div class='form_label'><%= f.label :motor_category_id, 'Марка' %></div>
+			<div class='form_field'><%= f.collection_select :motor_category_id, MotorCategory.all, :id, :title %></div>
+		</div>	
+		<div class='form_row'>
+			<div class='form_label'><%= f.label :model, 'Модель' %></div>
+			<div class='form_field'><%= f.text_field :model %></div>
+		</div>	
+		<div class='form_row'>
+			<div class='form_label'><%= f.label :power, 'Мощность' %></div>
+			<div class='form_field'><%= f.text_field :power %></div>
+		</div>
+		<div class='form_row'>
+			<div class='form_label'><%= f.label :strokes, 'Тактность' %></div>
+			<div class='form_field'><%= f.select :strokes, [['2','2'],['4','4']] %></div>
+		</div>
+		<div class='form_row'>
+			<div class='form_label'><%= f.label :price, 'Цена' %></div>
+			<div class='form_field'><%= f.text_field :price %></div>
+		</div>
+		<% @motor.motor_category.options_order.each do |k| %>
+			<div class='form_row'>
+				<div class='form_label'><%= f.label k, @motor.motor_category.human_name_for(k) %></div>
+				<div class='form_field'><%= text_field_tag "motor[options][#{k}]", @motor.options[k] %></div>
+			</div>
+		<% end %>
+		<%= f.fields_for :images do |builder| %>
+	    <%= render "images_fields", :f => builder %>
+	  <% end %>	
+	  <%= f.submit "Сохранить" %> или <%= link_to 'Отменить', admin_sea_pro_motors_path %>
+  </div>
+<% end -%>

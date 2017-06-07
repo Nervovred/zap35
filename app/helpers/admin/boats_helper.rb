@@ -1,0 +1,2 @@
+module Admin::BoatsHelper
+end

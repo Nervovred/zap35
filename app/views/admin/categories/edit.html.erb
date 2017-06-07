@@ -1,0 +1,13 @@
+<h2>Редактирование категории</h2>
+
+<%= form_for @category, :url => admin_category_path(@category), :method => :put do |f| -%>
+  <p>
+  	<%= f.label :title, 'Название' %>
+  	<%= f.text_field :title %>
+  </p>
+  <p>
+  	<%= f.label :partial, 'Служебная метка' %>
+  	<%= f.text_field :partial %>
+  </p>  
+  <%= f.submit "Сохранить" %> или <%= link_to 'Отменить', admin_categories_path %>
+<% end -%>

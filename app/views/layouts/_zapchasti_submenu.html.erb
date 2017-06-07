@@ -1,0 +1,7 @@
+<div id='submenu'>
+	<ul id='zapchasti_menu' class='submenu' <% if request.path.match('zapchasti') || (@return_if_fail && @return_if_fail.match('zapchasti'))%> style='display:block;'<% end %>>
+		<%= content_tag :li ,(link_to 'Для иномарок', '/zapchasti_dlya_inomarok', :class => is_active?('zapchasti_dlya_inomarok')) %>
+		<%= content_tag :li ,(link_to 'Для лодочных моторов', '/zapchasti_dlya_lodochnih_motorov', :class => is_active?('zapchasti_dlya_lodochnih_motorov')) %>
+		<%= content_tag :li ,(link_to 'Для китайских автобусов', '/zapchasti_dlya_kitaiskih_avtobusov', :class => is_active?('zapchasti_dlya_kitaiskih_avtobusov')) %>
+	</ul>
+</div>

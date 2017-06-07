@@ -1,0 +1,131 @@
+<div id="filter">
+	<%= form_tag '/lodki', :remote => true do %>
+	<ul class="top_level">
+		<li>
+			<span class="heading">Производитель</span>
+			<ul class="element">
+				<% @categories.each do |cat| %>
+					<li><%= check_box_tag "filter[categories][]", cat.id, @filtered && !@filtered['categories'].nil? && @filtered['categories'].include?(cat.id.to_s), :id => "category-#{cat.id}" %> <label for=<%="category-#{cat.id}"%>><%= cat.title %></label></li>
+				<% end %>
+			</ul>
+		</li>
+		<li>
+			<span class="heading">Тип</span>
+			<ul class="element">
+				<li>
+					<%= check_box_tag "filter[motor_type][]", false, @filtered && !@filtered['motor_type'].nil? && @filtered['motor_type'].include?("false"), :id => "motor_type-false" %> 
+					<label for="motor_type-false">
+						Гребные
+					</label>
+				</li>
+				<li>
+					<%= check_box_tag "filter[motor_type][]", true, @filtered && !@filtered['motor_type'].nil? && @filtered['motor_type'].include?("true"), :id => "motor_type-true" %> 
+					<label for="motor_type-true">
+						Моторные
+					</label>
+				</li>				
+			</ul>
+		</li>
+		<li>
+			<span class="heading">Длина, см</span>
+			<ul class="element">
+				<li>
+					<%= text_field_tag 'filter[length_range][minval]', @filtered && @filtered["length_range"]["minval"] ? @filtered["length_range"]["minval"] : @min_length, :class => "filter_field" %> - 
+					<%= text_field_tag 'filter[length_range][maxval]', @filtered && @filtered["length_range"]["maxval"] ? @filtered["length_range"]["maxval"] : @max_length, :class => "filter_field" %>
+				</li>
+				<li>
+					<div id="slider-length"></div>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<span class="heading">Мощность мотора, л.с.</span>
+			<ul class="element">
+				<li>
+					<%= text_field_tag 'filter[motor_power_range][minval]', @filtered && @filtered["motor_power_range"]["minval"] ? @filtered["motor_power_range"]["minval"] : @min_motor_power, :class => "filter_field" %> - 
+					<%= text_field_tag 'filter[motor_power_range][maxval]', @filtered && @filtered["motor_power_range"]["maxval"] ? @filtered["motor_power_range"]["maxval"] : @max_motor_power, :class => "filter_field" %>
+				</li>
+				<li>
+					<div id="slider-motor-power"></div>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<span class="heading">Грузоподъёмность, кг</span>
+			<ul class="element">
+				<li>
+					<%= text_field_tag 'filter[carrying_range][minval]', @filtered && @filtered["carrying_range"]["minval"] ? @filtered["carrying_range"]["minval"] : @min_carrying, :class => "filter_field" %> - 
+					<%= text_field_tag 'filter[carrying_range][maxval]', @filtered && @filtered["carrying_range"]["maxval"] ? @filtered["carrying_range"]["maxval"] : @max_carrying, :class => "filter_field" %>
+				</li>
+				<li>
+					<div id="slider-carrying"></div>
+				</li>
+			</ul>
+		</li>		
+		<li>
+			<span class="heading">Цена</span>
+			<ul class="element">
+				<li>
+					<%= text_field_tag 'filter[price_range][minval]', @filtered && @filtered["price_range"]["minval"] ? @filtered["price_range"]["minval"] : @min_price*1000, :class => "filter_field" %> - 
+					<%= text_field_tag 'filter[price_range][maxval]', @filtered && @filtered["price_range"]["maxval"] ? @filtered["price_range"]["maxval"] : @max_price*1000, :class => "filter_field" %>
+				</li>
+				<li>
+					<div id="slider-price"></div>
+				</li>
+			</ul>
+		</li>		
+		<li style="text-align:center"><%= submit_tag 'Показать', :class => 'button_medium submit_link' %></li>
+	</ul>
+	<% end %>
+</div>
+
+<% content_for :javascript do %>
+	<script>
+	  $(function() {
+	    $("#slider-price").slider({
+				range: true,
+	      min: <%= @min_price %>,
+	      max: <%= @max_price %>,
+	      values: [ <%= @filtered && @filtered["price_range"]["minval"] ? (@filtered["price_range"]["minval"].to_f / 1000).floor : @min_price %>, 
+	      					<%= @filtered && @filtered["price_range"]["maxval"] ? (@filtered["price_range"]["maxval"].to_f / 1000).ceil : @max_price %>],
+	    	slide: function( event, ui ) {
+        	$("#filter_price_range_minval").val(parseInt(ui.values[0])*1000);
+        	$("#filter_price_range_maxval").val(parseInt(ui.values[1])*1000);
+      	}}
+	    );
+	    $("#slider-motor-power").slider({
+				range: true,
+	      min: <%= @min_motor_power %>,
+	      max: <%= @max_motor_power %>,
+	      values: [ <%= @filtered && @filtered["motor_power_range"]["minval"] ? (@filtered["motor_power_range"]["minval"].to_f).floor : @min_motor_power %>, 
+	      					<%= @filtered && @filtered["motor_power_range"]["maxval"] ? (@filtered["motor_power_range"]["maxval"].to_f).ceil : @max_motor_power %>],
+	    	slide: function( event, ui ) {
+        	$("#filter_motor_power_range_minval").val(parseInt(ui.values[0]));
+        	$("#filter_motor_power_range_maxval").val(parseInt(ui.values[1]));
+      	}}
+	    );	    
+	    $("#slider-length").slider({
+				range: true,
+	      min: <%= @min_length %>,
+	      max: <%= @max_length %>,
+	      values: [ <%= @filtered && @filtered["length_range"]["minval"] ? (@filtered["length_range"]["minval"].to_f).floor : @min_length %>, 
+	      					<%= @filtered && @filtered["length_range"]["maxval"] ? (@filtered["length_range"]["maxval"].to_f).ceil : @max_length %>],
+	    	slide: function( event, ui ) {
+        	$("#filter_length_range_minval").val(parseInt(ui.values[0]));
+        	$("#filter_length_range_maxval").val(parseInt(ui.values[1]));
+      	}}
+	    );	    
+	    $("#slider-carrying").slider({
+				range: true,
+	      min: <%= @min_carrying %>,
+	      max: <%= @max_carrying %>,
+	      values: [ <%= @filtered && @filtered["carrying_range"]["minval"] ? (@filtered["carrying_range"]["minval"].to_f).floor : @min_carrying %>, 
+	      					<%= @filtered && @filtered["carrying_range"]["maxval"] ? (@filtered["carrying_range"]["maxval"].to_f).ceil : @max_carrying %>],
+	    	slide: function( event, ui ) {
+        	$("#filter_carrying_range_minval").val(parseInt(ui.values[0]));
+        	$("#filter_carrying_range_maxval").val(parseInt(ui.values[1]));
+      	}}
+	    );	    
+	  });
+	</script>
+<% end %>

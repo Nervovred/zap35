@@ -1,0 +1,10 @@
+<% if params[:page] %>
+	$('#motors-list').append("<%= escape_javascript (render :partial => 'motors/motors', :locals => {:motors => @motors}) %>");
+<% else %>
+	$('#motors-list').html("<%= escape_javascript (render :partial => 'motors/motors', :locals => {:motors => @motors}) %>");
+<% end %>
+<% if !@filtered.nil? %>
+	$('#load-more').html("<%= escape_javascript link_to 'Загрузить ещё', lodochnie_motory_path(:page => @motors.next_page, :filter => @filtered), :remote => true, :class => 'button_medium' if @motors.next_page %>");
+<% else %>
+	$('#load-more').html("<%= escape_javascript link_to 'Загрузить ещё', lodochnie_motory_path(:page => @motors.next_page), :remote => true, :class => 'button_medium' if @motors.next_page %>");
+<% end %>

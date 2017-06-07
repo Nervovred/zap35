@@ -1,0 +1,26 @@
+<h1>Прайсы</h1>
+
+<table id="prices">
+	<thead>
+		<tr>
+			<th>Поставщик</td>
+			<th>Категория</th>
+			<th>Файл загружен</th>
+			<th colspan="4">Действия</td>
+		</tr>
+	</thead>
+	<tbody>
+		<% @prices.each do |p| %>
+			<%= content_tag_for(:tr, p) do %>
+				<td><%= p.vendor.title %></td>
+				<td><%= p.part_category.title %></td>
+				<td><%= p.file_loaded %></td>
+				<td><%= link_to 'Просмотр', admin_price_path(p) %></td>
+				<td><%= link_to 'Изменить', edit_admin_price_path(p) %></td>
+				<td><%= link_to 'Удалить', admin_price_path(p), :method => :delete, :confirm => 'Вы уверены?' %></td>
+				<td><%= link_to 'Внести', calculate_admin_price_path(p) %></td>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>
+<%= link_to 'Добавить', new_admin_price_path %>

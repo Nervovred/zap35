@@ -1,0 +1,19 @@
+<h1>Добавление страницы</h1>
+
+<%= form_for @page, :url => admin_pages_path do |f| %>
+	<p>
+		<%= f.label :title, 'Заголовок'%>
+		<%= f.text_field :title %>
+	</p>
+	<p>
+		<%= f.label :url, 'URL' %>
+		<%= f.text_field :url %>
+	</p>
+	<p>
+		<%= f.label :body, 'Контент' %><br/>
+		<%= f.text_area :body %>
+	</p>
+	<p>
+		<%= f.submit "Добавить" %> или <%= link_to 'Отменить', admin_pages_path %>
+	</p>
+<% end %>

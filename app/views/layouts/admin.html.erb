@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>Запчасти 35</title>
+        <link href="http://fonts.googleapis.com/css?family=Bitter" rel="stylesheet" type="text/css" />
+		<%= stylesheet_link_tag "application", "colorbox" %>
+		<%= javascript_include_tag :application %>
+    </head>
+    <body>
+		<div id="bg">
+			<div id="outer_admin">
+				<div id="header_admin">
+					<div id="logo">
+						<h1>
+							<a href="/admin"><%= image_tag 'logo3.png', :style => 'float:left;'%> Запчасти 35 Панель администратора</a> 
+						</h1>
+					</div>
+				</div>
+				<div id="main">
+					<div id="sidebar">
+						<ul class="linkedList">
+							<li class="first">
+								<%= link_to "Категории", admin_categories_path %>
+							</li>
+							<li>
+								<%= link_to 'Способы доставки', admin_delivery_methods_path %>
+							</li>							
+							<li>
+								<%= link_to 'Способы оплаты', admin_payment_methods_path %>
+							</li>
+						  <li>
+						  	<%= link_to 'Поставщики лодок', admin_boat_categories_path %>
+						  </li>							
+						  <li>
+						  	<%= link_to 'Лодки', admin_boats_path %>
+						  </li>
+							<li>
+								<%= link_to 'Моторы Sea-Pro', admin_sea_pro_motors_path %>
+							</li>
+							<li>
+								<%= link_to 'Поставщики', admin_vendors_path %>
+							</li>
+							<li>
+								<%= link_to 'Прайсы', admin_prices_path %>
+							</li>							
+						</ul>
+					</div>
+					<div id="admin_content">
+						<%= yield %>
+						<br class="clear" />
+					</div>
+					<br class="clear" />
+				</div>
+			</div>
+			<div id="copyright">
+				&copy; zapchasti35.ru, 2013
+			</div>
+		</div>
+    <%= yield :javascript %>		
+    </body>
+</html>

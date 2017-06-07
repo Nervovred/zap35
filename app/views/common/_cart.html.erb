@@ -1,0 +1,5 @@
+<% if current_cart.total_items > 0 %>
+  <a id="cart_count" href="/cart"><%= current_cart.total_items %></a>
+<% else %>
+	<a id="cart_count" href="/cart" style="display:none;"></a>
+<% end %>

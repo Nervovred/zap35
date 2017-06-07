@@ -1,0 +1,9 @@
+$('#cart_item-tr-<%=@ci.id%>').remove();
+$('#cart_span').html("<%=j(render :partial => '/common/cart_header') %>");
+$('#cart_span').effect("highlight", {}, 500);
+$('#cart_count_wrap').html("<%=j(render :partial => '/common/cart') %>");
+<% if current_cart.cart_items.size == 0 %>
+  $('#cart').html('<p>Вы ещё ничего не положили в корзину.</p>')
+<% else %>
+  $('#total_sum').html("<%=j(render :partial => 'cart/cart_total')%>");
+<% end %>

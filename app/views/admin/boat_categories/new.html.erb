@@ -1,0 +1,25 @@
+<h2>Новый поставщик</h2>
+
+<%= form_for @boat_category, :url => admin_boat_categories_path do |f| -%>
+  <p>
+  	<%= f.label :title, 'Название' %>
+  	<%= f.text_field :title %>
+  </p>
+  <p>
+  	<%= f.label :url_title, 'Метка пути' %>
+  	<%= f.text_field :url_title %>
+  </p>
+  <p>
+  	<%= f.label :menu_title, 'Текст для меню' %>
+  	<%= f.text_field :menu_title %>
+  </p>
+  <p>
+  	<%= f.label :description, 'Описание' %><br/>
+  	<%= f.text_area :description %>
+  </p>
+  <p>
+  	<%= f.label :options, 'Массив опций' %><br/>
+  	<%= f.text_area :options %>
+  </p>
+	<%= f.submit "Сохранить" %> или <%= link_to 'Отменить', admin_boat_categories_path %>
+<% end -%>

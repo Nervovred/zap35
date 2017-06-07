@@ -1,0 +1,52 @@
+<h1>Регистрация</h1>
+
+<%= form_for @user do |f| %>
+
+  <% if @user.errors.any? %>
+    <div class="error_messages">
+      <% @user.errors.messages.values.each do |values| %>
+        <% values.each do |message| %>
+          <p><%= message %></p>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name, 'Имя' %><br />
+    <%= f.text_field :name, :class => 'validate[required]', :class => 'validate[required]' %>
+  </div>
+  <div class="field">
+    <%= f.label :email, 'Email' %><br />
+    <%= f.text_field :email, :class => 'validate[required, custom[email],ajax[ajaxEmailCheck]]' %>
+  </div>
+  <div class="field">
+    <%= f.label :phone, "Телефон" %><br />
+    <%= f.text_field :phone, :class => 'validate[required]' %>
+  </div>  
+  <div class="field">
+    <%= f.label :password, 'Пароль' %><br />
+    <%= f.password_field :password, :class => 'validate[required] text-input'  %>
+  </div>
+  <div class="field">
+    <%= f.label :password_confirmation, 'Потдверждение пароля' %><br />
+    <%= f.password_field :password_confirmation, :class => 'validate[required, equals[user_password]] text-input'%>
+  </div>
+  <div class="actions"><%= f.submit "Зарегистрироваться" %></div>
+<% end %>
+
+
+<%= content_for :javascript do %>
+<script>
+  $(function(){
+    $('#new_user').validationEngine('attach', {promptPosition: 'topRight'});
+  <% if @user.errors.any? %> 
+    <% construct_errors(@user.errors.messages, 'user').each do |key, values| %>
+      <% values.each do |val| %>
+        $('<%=j key %>').validationEngine('showPrompt', '<%=j val %>', 'error', 'topRight');
+      <% end %>
+    <% end %>
+  <% end %>    
+  });
+</script>
+<% end %>

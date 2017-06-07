@@ -1,0 +1,7 @@
+<div id='submenu'>
+	<ul id='lodki_menu' class='submenu' <% if request.path.match('lodki') || (@return_if_fail && @return_if_fail.match('lodki'))%> style='display:block;'<% end %>>
+		<% BoatCategory.order('position').each do |bc| %>
+			<%= content_tag :li ,(link_to bc.menu_title, "/lodki/#{bc.url_title}", :class => is_active?(bc.url_title)) %>
+		<% end %>
+	</ul>
+</div>

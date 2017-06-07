@@ -1,0 +1,28 @@
+<h1><%= @motor.title %></h1>
+<div class="product">
+	<div class="colobox_picture"><%= image_tag @motor.images[0].picture.url(:high), :style => 'width:350px;' %></div>
+	<div class="product_description">
+		<table class="product_table">
+			<tr>
+				<td>
+					Мощность, л.с.
+				</td>
+				<td>
+					<%= @motor.power %>			
+				</td>
+			</tr>
+			<% @motor.motor_category.options_order.each do |k| %>
+				<tr>
+					<td><%= @motor.motor_category.human_names[k] %></td>
+					<td><%= raw @motor.options[k] %></td>
+				</tr>
+			<% end %>
+		</table>
+		<table>
+			<tr>
+				<td class="price_column">Цена: <%= number_to_currency(@motor.price, :delimiter => ' ', :unit => 'р.', :format => "%n %u", :precision => 0) %></td>
+				<td><div class="colorbox_heading"><%= link_to "В корзину", add_to_cart_path(:item_id => @motor.id, :item_type => 'Motor'), :remote => true, :rel => 'nofollow', :class => 'button_large' %></div></td>
+			</tr>
+		</table>			
+	</div>		
+</div>

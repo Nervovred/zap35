@@ -1,0 +1,96 @@
+<h1>Моторы Sea-Pro</h1>
+<h2>Двухтактные</h2>
+<%= form_tag update_prices_admin_sea_pro_motors_path do %>
+<table>
+	<thead>
+		<tr>
+			<th>
+				Фото
+			</th>
+			<th>
+				Модель
+			</th>
+			<th>
+				Цена
+			</th>
+			<th>
+				Активен?
+			</th>			
+			<th colspan='3'>
+				Действия
+			</th>
+		</tr>
+	</thead>
+	<tbody data-update-url="<%= sort_two_strokes_admin_sea_pro_motors_path %>">
+	<% @two_strokes.each do |m| %>
+		<%= content_tag_for(:tr, m) do %>
+			<td>
+				<% if !m.images.empty? %>
+					<%= link_to (image_tag m.images[0].picture.url(:thumb)), admin_sea_pro_motor_path(m), :class => 'ajax cboxElement'%>
+				<% end %>
+			</td>
+			<td><%= m.model %></td>
+			<td><%= text_field_tag "motors[#{m.id}][price]", m.price %></td>
+			<td><%= check_box_tag "motor-active-#{m.id}", "1", m.active, {:class=>'active_checkbox', "data-id" => "#{m.id}"} %></td>
+			<td><%= link_to 'Просмотр', admin_sea_pro_motor_path(m) %></td>
+			<td><%= link_to 'Изменить', edit_admin_sea_pro_motor_path(m) %></td>
+			<td><%= link_to 'Удалить', admin_sea_pro_motor_path(m), :method => :delete, :confirm => 'Вы уверены?' %></td>
+		<% end %>
+	<% end %>
+	</tbody>
+</table>
+<h2>Четырехтактные</h2>
+<table>
+	<thead>
+		<tr>
+			<th>
+				Фото
+			</th>
+			<th>
+				Модель
+			</th>
+			<th>
+				Цена
+			</th>
+			<th>
+				Активен?
+			</th>					
+			<th colspan='3'>
+				Действия
+			</th>
+		</tr>
+	</thead>
+	<tbody data-update-url="<%= sort_four_strokes_admin_sea_pro_motors_path %>">
+	<% @four_strokes.each do |m| %>
+		<%= content_tag_for(:tr, m) do %>
+			<td>
+				<% if !m.images.empty? %>
+					<%= link_to (image_tag m.images[0].picture.url(:thumb)), admin_sea_pro_motor_path(m), :class => 'ajax cboxElement'%>
+				<% end %>
+			</td>
+			<td><%= m.model %></td>
+			<td><%= text_field_tag "motors[#{m.id}][price]", m.price %></td>
+			<td>
+				<%= check_box_tag "motor-active-#{m.id}", "1", m.active, {:class=>'active_checkbox', "data-id" => "#{m.id}"} %>
+			</td>			
+			<td><%= link_to 'Просмотр', admin_sea_pro_motor_path(m) %></td>
+			<td><%= link_to 'Изменить', edit_admin_sea_pro_motor_path(m) %></td>
+			<td><%= link_to 'Удалить', admin_sea_pro_motor_path(m), :method => :delete, :confirm => 'Вы уверены?' %></td>
+		<% end %>
+	<% end %>
+	</tbody>
+</table>
+
+<%= submit_tag 'Обновить цены' %>
+<% end %>
+<%= link_to 'Добавить', new_admin_sea_pro_motor_path %>
+
+<% content_for :javascript do %>
+<script>
+	$(function(){
+		$('.active_checkbox').bind('click', function(){
+			$.get('/admin/sea_pro_motors/' + $(this).data('id') + '/toggle_active')
+		});
+	});
+</script>
+<% end %>

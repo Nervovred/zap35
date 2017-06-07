@@ -1,0 +1,44 @@
+<h1>Лодочные моторы</h1>
+<% content_for :javascript do %>
+	<script>
+		$(function(){
+			$(".ajax").colorbox();
+		});
+	</script>
+<% end %>
+<% @categories.each do |category| %>
+	<% if !category.motors.empty? %>
+		<h2>Лодочные моторы <%= category.title %></h1>
+		<% if !category.two_stroke_motors.empty? %>
+			<h2>Двухтактные</h2>
+			<ul class="product-listing">
+			<% category.two_stroke_motors.sort{|a| a.price.to_i}.each do |m| %>
+				<li>
+					<%= link_to "#{category.title} #{m.model}", motor_path(m), :class => 'ajax cboxElement' %>
+					<div class="product-image-wrapper">
+						<%= link_to (image_tag m.images[0].picture.url(:cell)), motor_path(m), :class => 'ajax cboxElement' %>
+					</div>
+					<%= link_to number_to_currency(m.price, :delimiter => ' ', :unit => 'р.', :format => "%n %u", :precision => 0), motor_path(m), :class => 'info ajax cboxElement' %>
+				</li>
+			<% end %>
+		</ul>
+		<% end %>
+		<div style="clear:both"></div>
+		<% if !category.four_stroke_motors.empty? %>
+			<h2>Четырехтактные</h2>
+			<ul class="product-listing">
+				<% category.four_stroke_motors.each do |m| %>
+					<li>
+						<%= link_to "#{category.title} #{m.model}", motor_path(m), :class => 'ajax cboxElement' %>
+						<div class="product-image-wrapper">
+							<%= link_to (image_tag m.images[0].picture.url(:cell)), motor_path(m), :class => 'ajax cboxElement' %>
+						</div>
+						<%= link_to number_to_currency(m.price, :delimiter => ' ', :unit => 'р.', :format => "%n %u", :precision => 0), motor_path(m), :class => 'info ajax cboxElement' %>
+					</li>
+				<% end %>
+			</ul>
+		<% end %>
+		<div style="clear:both"></div>
+		<br/>
+	<% end %>
+<% end %>

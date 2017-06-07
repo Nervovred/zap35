@@ -1,0 +1,60 @@
+<h1>Поступила новая заявка</h1>
+
+<% if @order.motor == 'true' %>
+	<p>
+		<strong>Мотор: <%= Motor.find(@order.motor_id).model %></strong>
+	</p>		
+	<p>
+		<strong>Цена: <%= Motor.find(@order.motor_id).price %></strong>
+	</p>
+<% else %>
+
+<% if @order.category %>
+		<h2>Категория: <%= @order.category.title %>
+	<% end %>
+	<% if !@order.brand.blank? %>
+	<p>
+		<strong>Марка: <%= @order.brand %></strong>
+	</p>
+	<% end %>
+	<% if !@order.model.blank? %>
+	<p>
+		<strong>Модель: <%= @order.options['model'] %></strong>
+	</p>
+	<% end %>
+	<% if !@order.year.blank? %>
+	<p>
+		Год выпуска: <%= @order.year %>
+	</p>
+	<% end %>
+	<% if !@order.vin.blank? %>
+	<p>
+		VIN: <%= @order.vin %>
+	</p>
+	<% end %>
+	<% if !@order.shield.blank? %>
+	<p>
+		Информация с шильды: <br/><%= @order.shield %>
+	</p>
+	<% end %>
+	<% if !@order.engine_model.blank? %>
+	<p>
+		Модель двигателя: <%= @order.engine_model %>
+	</p>
+	<% end %>
+	<% if !@order.subject.blank? %>
+	<p>
+		<strong>Запчасть: <%= @order.subject %></strong>
+	</p>
+	<% end %>
+	<% if !@order.content.blank? %>
+	<p>
+		Подробности:<br/> <%= @order.content %>
+	</p>
+	<% end %>
+<% end %>
+<br/>
+<h2>Контакты: </h2>
+<p>Имя: <%= @order.name %></p>
+<p>Телефон: <%= @order.phone %></p>
+<p>Email: <%= @order.email %></p>

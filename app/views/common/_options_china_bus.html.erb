@@ -1,0 +1,65 @@
+<div id="options">
+	<div class="left_column_form">
+		<div class="form_row">
+			<div class="form_label">
+				<%= label_tag 'order_brand', 'Марка', @order.brand%>
+			</div>
+			<div class="form_field">
+				<%= text_field_tag 'order[brand]' %>
+			</div>
+		</div>
+		<div class="form_row">
+			<div class="form_label">
+				<%= label_tag 'order_model', 'Модель' %>
+			</div>
+			<div class="form_field">
+				<%= text_field_tag 'order[model]', @order.model %>
+			</div>
+		</div>
+		<div class="form_row">
+			<div class="form_label">
+				<%= label_tag 'order_year', 'Год выпуска' %>
+			</div>
+			<div class="form_field">
+				<%= text_field_tag 'order[year]', @order.year %>
+			</div>
+		</div>
+		<div class="form_row">
+			<div class="form_label">
+				<%= label_tag 'order_vin', 'VIN' %>
+			</div>
+			<div class="form_field">
+				<%= text_field_tag 'order[vin]', @order.vin %>
+			</div>
+		</div>
+		<div class="form_row">
+			<div class="form_label">
+				<%= label_tag 'order_engine_model', 'Модель двигателя' %>
+			</div>
+			<div class="form_field">
+				<%= text_field_tag 'order[engine_model]', @order.engine_model %>
+			</div>
+		</div>
+		<div class="form_row">
+			<div class="form_label">
+				<%= label_tag 'order_subject', 'Запчасть' %>
+			</div>
+			<div class="form_field">
+				<%= text_field_tag 'order[subject]', @order.subject %>
+			</div>
+		</div>		
+		<div class="form_row">
+			<div class="form_label">
+				<%= label_tag 'order_content', 'Подробности' %>
+			</div>
+			<div class="form_field">
+				<%= text_area_tag 'order[content]', @order.content %>
+			</div>					
+		</div>
+	</div>
+	<div id="disclaimer">
+		Внимание!<br/>
+		Для более быстрого и точного подбора запчасти желательно максимально подробно заполнить все поля слева.
+	</div>
+	<div class"clear"></div>
+</div>

@@ -1,0 +1,16 @@
+<h1>Поиск</h1>
+
+<% if !@results.empty? %>
+<ul id="search_results">
+<% @results.each do |result| %>
+	<li>
+		<%= link_to result.content, eval("#{result.searchable_type.underscore}_path(#{result.searchable_id})"), :target => '_blank' %>
+	</li>		
+<% end %>
+</ul>
+
+<% else %>
+
+<h3>К сожалению, ничего не найдено.</h3>
+	<%= link_to 'На главную', '/' %>
+<% end %>

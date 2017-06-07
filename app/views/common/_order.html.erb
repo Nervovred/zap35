@@ -1,0 +1,75 @@
+<div id="order">
+	<%= form_for @order do |f| -%>
+	<%= hidden_field_tag 'return_if_fail', @return_if_fail.nil? ? 'home/index' : @return_if_fail %>
+		<div class="left_column_form">
+			<% if !current_user %>
+				<div class="form_row">
+					<div class="form_label">
+						<%= f.label :name, "Имя" %>
+					</div>
+					<div class="form_field">
+						<%= f.text_field :name, :class => 'validate[required]' %>
+					</div>
+				</div>
+				<div class="form_row">
+					<div class="form_label">
+						<%= f.label :phone, "Телефон" %>
+					</div>
+					<div class="form_field">
+						<%= f.text_field :phone, :class => 'validate[required]' %>
+					</div>
+				</div>
+				<div class="form_row">
+					<div class="form_label">
+						<%= f.label :email, "Email" %>
+					</div>
+					<div class="form_field">
+						<%= f.text_field :email, :class => 'validate[required, custom[email]]' %>
+					</div>
+				</div>
+			<% end %>
+			<% if multiple %>
+			<div class="form_row">
+				<div class="form_label">
+					<%= f.label :category_id, "Категория" %>
+				</div>
+				<div class="form_field">
+					<%= f.collection_select :category_id, Category.all, :id, :title %>
+				</div>								
+			</div>	
+			<% else %>
+				<%= f.hidden_field :category_id %>
+			<% end %>
+		</div>
+		<% if multiple %>
+			<%= render :partial => '/common/options_car_parts', :locals => {:order => @order} %>
+		<% else %>
+			<%= render :partial => "/common/options#{@order.category.partial}", :locals => {:order => @order} %>
+		<% end %>
+		<div class="left_column_form">
+		<div class="form_row">
+			<div class="form_label">
+				<label>Проверка</label>
+			</div>
+			<div class="form_field">
+					<%= recaptcha_tags %>
+			</div>
+		</div>	
+			<div class="form_row">
+				<div class="centered_submit">
+					<%= submit_tag "Отправить" %>
+				</div>
+			</div>
+		</div>
+	<% end -%>
+</div>
+
+<%= content_for :javascript do %>
+<script>
+	$(function(){
+		<% if !current_user %>
+			$('#new_order').validationEngine('attach', {promptPosition: 'centerRight'});
+		<% end %>
+	})
+</script>
+<% end %>

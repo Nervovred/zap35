@@ -1,0 +1,7 @@
+<% if !boats.empty? %>
+	<% boats.each do |m| %>
+		<%= render :partial => '/common/boat_cell', :locals => {:m => m, :category => m.boat_category} %>
+	<% end %>
+<% else %>
+	<h3 style="text-align:center">К сожалению, ничего не найдено. Измените условия поиска.</h3>
+<% end %>

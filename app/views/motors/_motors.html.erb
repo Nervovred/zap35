@@ -1,0 +1,7 @@
+<% if !motors.empty? %>
+	<% motors.each do |m| %>
+		<%= render :partial => '/common/motor_cell', :locals => {:m => m, :category => m.motor_category} %>
+	<% end %>
+<% else %>
+	<h3 style="text-align:center">К сожалению, ничего не найдено. Измените условия поиска.</h3>
+<% end %>

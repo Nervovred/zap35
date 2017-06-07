@@ -1,0 +1,33 @@
+<div class="pull_left"><h1>Лодочные моторы</h1></div>
+<div class="pull_right"><div id="ajax-loader"><%= image_tag ('ajax-loader.gif') %></div></div>
+<div class="clear"></div>
+<%= render :partial => 'motors/filter' %>
+<div class="product-listing">
+	
+	<ul id="motors-list">
+		<%= render :partial => 'motors/motors', :locals => {:motors => @motors} %>
+	</ul>
+	<div id="load-more" style='text-align:center;'>
+		<% if !@filtered.nil? %>
+			<%= link_to 'Загрузить ещё', lodochnie_motory_path(:page => @motors.next_page, :filter => @filtered), :remote => true, :class => 'button_medium' if @motors.next_page %>
+		<% else %>
+			<%= link_to 'Загрузить ещё', lodochnie_motory_path(:page => @motors.next_page), :remote => true, :class => 'button_medium' if @motors.next_page %>
+		<% end %>
+	</div>
+</div>
+
+<% content_for :javascript do %>
+	<script>
+		$(function(){
+			$(".ajax").colorbox();
+			$('#ajax-loader').hide();  // hide it initially.
+			  $(document)  
+			    .ajaxStart(function() {
+			      $('#ajax-loader').show(); // show on any Ajax event.
+			    })
+			    .ajaxStop(function() {
+			      $('#ajax-loader').hide(); // hide it when it is done.
+			  });			
+		});
+	</script>
+<% end %>

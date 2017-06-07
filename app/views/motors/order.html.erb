@@ -1,0 +1,64 @@
+<h1>Заказ мотора</h1>
+
+<h2>Лодочный мотор <%= @motor.motor_category.title %> <%= @motor.model %></h2>
+<h3>Цена: <%= number_to_currency(@motor.price, :delimiter => ' ', :unit => 'р.', :format => "%n %u", :precision => 0) %></h3>
+
+<div id="order">
+	<%= form_for @order, :url => orders_path do |f| -%>
+	<%= hidden_field_tag 'return_if_fail', @return_if_fail.nil? ? 'home/index' : @return_if_fail %>
+		<%= f.hidden_field :motor %>
+		<%= f.hidden_field :motor_id %>
+		<%= hidden_field_tag 'vendor', @vendor %>
+		<div class="left_column_form">
+			<div class="form_row">
+				<div class="form_label">
+					<%= f.label :name, "Имя" %>
+				</div>
+				<div class="form_field">
+					<%= f.text_field :name, :class => 'validate[required]' %>
+				</div>
+			</div>
+			<div class="form_row">
+				<div class="form_label">
+					<%= f.label :phone, "Телефон" %>
+				</div>
+				<div class="form_field">
+					<%= f.text_field :phone, :class => 'validate[required]' %>
+				</div>
+			</div>
+			<div class="form_row">
+				<div class="form_label">
+					<%= f.label :email, "Email" %>
+				</div>
+				<div class="form_field">
+					<%= f.text_field :email, :class => 'validate[required, custom[email]]' %>
+				</div>
+			</div>
+		</div>
+		<div class="left_column_form">
+			<div id="captcha_row">
+				<%= show_simple_captcha(:object => "order", :code_type => 'numeric') %>
+			</div>
+			<div class="form_row">
+				<div class="centered_submit">
+					<%= submit_tag "Отправить" %>
+				</div>
+			</div>
+		</div>
+	<% end -%>
+</div>
+
+<%= content_for :javascript do %>
+<script>
+	$(function(){
+		$('#new_order').validationEngine('attach', {promptPosition: 'centerRight'});
+		$('#order').delegate("#refresh_captcha", "click", function(e){
+			e.preventDefault();
+			$("#captcha_row").load('/orders/refresh_captcha');
+		});
+	<% if @captcha_fail %> 
+		$('#order_captcha').validationEngine('showPrompt', 'Неверный код', 'error', 'centerRight');
+	<% end %>
+	})
+</script>
+<% end %>

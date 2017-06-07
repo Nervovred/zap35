@@ -1,0 +1,38 @@
+<h1>Корзина</h1>
+
+<% if @cart.total_items == 0 %>
+  <div id="cart">
+    <p>Вы ещё ничего не положили в корзину.</p>
+  </div>
+<% else %>
+  <div id="cart">
+    <table class="cart_table">
+    <tr>
+      <th>Наименование</th>
+      <th>Цена</th>
+      <th>Количество</th>
+      <th>Сумма</th>
+      <th>&nbsp;</th>
+    </tr>
+    <% @cart.cart_items.each do |ci|%>
+      <tr id="cart_item-tr-<%=ci.id%>">
+        <td class="title"><%= ci.cartable.cart_item_title %></td>
+        <td class="price"><%= number_to_currency(ci.price, :delimiter => ' ', :unit => 'р.', :format => "%n %u", :precision => 0) %></td>
+        <td class="quantity" id="cart_item-td-<%=ci.id%>"><%= render :partial => '/cart/cart_item', :locals => {:ci => ci} %></td>
+        <td class="sum" id='cart_item-total-<%=ci.id%>'><%= render :partial => '/cart/cart_item_total', :locals => {:ci => ci} %></td>
+        <td><%= link_to 'Удалить', remove_from_cart_path(:id => ci.id), :remote => true %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td colspan="3"><strong>Итого</strong></td>
+      <td id="total_sum"><%= number_to_currency(@cart.total_sum, :delimiter => ' ', :unit => 'р.', :format => "%n %u", :precision => 0) %></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td colspan="3"><%= link_to "Оформить заказ", checkout_path %></td>
+      <td>&nbsp;</td>
+    </tr>
+    </table>
+  </div>
+<% end %>

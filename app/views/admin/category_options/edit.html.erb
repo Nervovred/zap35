@@ -1,0 +1,20 @@
+<h2>Категория: <%= @category.title %></h2>
+
+<h3>Редактирование опции</h3>
+
+<%= form_for [@category, @option], :url => admin_category_category_option_path do |f| %>
+	<%= f.hidden_field :category_id %>
+	<p>
+		<%= f.label :title, 'Название' %>
+		<%= f.text_field :title %>
+	</p>
+	<p>
+		<%= f.label :kind, 'Тип' %>
+		<%= f.select :kind, CategoryOption::SELECT_OPTIONS_ARRAY %>
+	</p>	
+	<p>
+		<%= f.label :option_key, 'Ключ' %>
+		<%= f.text_field :option_key %>
+	</p>	
+	<%= f.submit "Сохранить" %>
+<% end %>

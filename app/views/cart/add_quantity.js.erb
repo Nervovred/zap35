@@ -1,0 +1,7 @@
+var itemsCount = <%= current_cart.total_items.to_i %>;
+$('#cart-count-header').html(itemsCount);
+$('#cart_count').html(itemsCount);
+$('#cart_item-td-<%=@ci.id%>').html("<%= j(render :partial => '/cart/cart_item', :locals => {:ci => @ci})%>");
+$('#cart_item-total-<%=@ci.id%>').html("<%= j(render :partial => '/cart/cart_item_total', :locals => {:ci => @ci})%>");
+$('#total_sum').html("<%=j(render :partial => 'cart/cart_total')%>");
+itemsCount = itemsCount + 1;

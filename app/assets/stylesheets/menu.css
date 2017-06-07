@@ -1,0 +1,14 @@
+/* style for horizontal nav */
+#navigation_horiz {width:820px; clear:both; padding:0 0 0 0; margin:0 auto}
+#navigation_horiz ul {height:50px; display:block}
+#navigation_horiz ul li {display:block; float:left; width:200px; height:50px; background:#999; margin:0 1px 0 0; position:relative}
+#navigation_horiz ul li a.navlink {display:block; width:200px; height:30px; padding: 20px 0 0 0; text-align:center; color:#fff; text-decoration:none}
+#navigation_horiz .dropdown {position:absolute; padding:20px; border-bottom-right-radius:10px; border-bottom-left-radius:10px; -moz-border-radius-bottomright:10px; -moz-border-radius-bottomleft:10px}
+
+/* style for each drop down - horizontal */
+#navigation_horiz ul li #dropdown_one {background:#ccc; color:#fff}
+#navigation_horiz ul li #dropdown_one a {color:red}
+#navigation_horiz ul li #dropdown_two {background:#ccc; color:#fff}
+#navigation_horiz ul li #dropdown_two a {color:black}
+#navigation_horiz ul li #dropdown_three {background:#ccc; color:#fff}
+#navigation_horiz ul li #dropdown_three a {color:gray}

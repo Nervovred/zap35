@@ -1,0 +1,34 @@
+<h2>Категория: <%= @category.title %></h2>
+<h3>Опции:</h3>
+<table id="options">
+	<thead>
+		<tr>
+			<th>Название</th>
+			<th>Тип</th>
+			<th>Ключ</th>
+			<th colspan="2">Действия</th>
+		</tr>
+	</thead>
+	<tbody data-update-url="<%= sort_admin_category_category_options_path(:category_id => @category.id) %>">
+		<% @category.category_options.each do |option| %>
+			<%= content_tag_for(:tr, option) do %>
+				<td>
+					<%= option.title %>
+				</td>
+				<td>
+					<%= CategoryOption::SELECT_OPTIONS_HASH[option.kind] %>
+				</td>
+				<td>
+					<%= option.option_key %>
+				</td>
+				<td>
+					<%= link_to "Редактировать", edit_admin_category_category_option_path(:category_id => @category.id, :id => option.id) %>
+				</td>
+				<td>
+					<%= link_to "Удалить", admin_category_category_option_path(:category_id => @category.id, :id => option.id), :method => :delete, :confirm => 'Вы уверены?' %>
+				</td>			
+			<% end %>
+	<% end %>
+	</tbody>
+</table>
+<%= link_to "Добавить опцию", new_admin_category_category_option_path(@category)%>

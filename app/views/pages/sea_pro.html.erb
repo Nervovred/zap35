@@ -1,0 +1,130 @@
+<% content_for :javascript do %>
+	<script>
+		$(function(){
+			$(".ajax").colorbox();
+		});
+	</script>
+<% end %>
+<h1>Лодочные моторы SEA-PRO</h1>
+<div style='text-align:center'>
+<h2>Двухтактные</h2>
+<table class='centered_table'>
+	<thead>
+		<tr>
+			<th colspan="2">
+				Модель
+			</th>
+			<th>
+				Мощность, л.с.
+			</th>
+			<th>
+				Вес, кг.
+			</th>
+			<th>
+				Топл. бак, л.
+			</th>
+			<th>
+				Длина ноги
+			</th>
+			<th>
+				Цена
+			</th>
+			<th>
+				&nbsp;
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @two_strokes.each do |m| %>
+		<tr>
+			<td>
+				<% if !m.images.empty? %>
+					<%= link_to (image_tag m.images[0].picture.url(:tiny), :style => 'height:48px;'), motor_path(m), :class => 'ajax cboxElement'%>
+				<% end %>
+			</td>
+			<td>
+				<%= link_to m.model, motor_path(m), :class => 'ajax cboxElement'%>
+			</td>
+			<td>
+				<%= m.power %>
+			</td>
+			<td>
+				<%= m.weight %>
+			</td>
+			<td>
+				<%= m.fuel_tank %>
+			</td>
+			<td>
+				381
+			</td>
+			<td>
+				<%= number_to_currency(m.price, :delimiter => ' ', :unit => 'р.', :format => "%n %u", :precision => 0) %>
+			</td>
+			<td>
+				<strong><%= link_to "Добавить в корзину", add_to_cart_path(:item_id => m.id, :item_type => 'Motor'), :remote => true, :rel => 'nofollow' %></strong>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+<h2>Четырехтактные</h2>
+<table class='centered_table'>
+	<thead>
+		<tr>
+			<th colspan="2">
+				Модель
+			</th>
+			<th>
+				Мощность, л.с.
+			</th>
+			<th>
+				Вес, кг.
+			</th>
+			<th>
+				Топл. бак, л.
+			</th>
+			<th>
+				Длина ноги
+			</th>
+			<th>
+				Цена
+			</th>
+			<th>
+				&nbsp;
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @four_strokes.each do |m| %>
+		<tr>
+			<td>
+				<% if !m.images.empty? %>
+					<%= link_to (image_tag m.images[0].picture.url(:tiny), :style => 'height:48px;'), motor_path(m), :class => 'ajax cboxElement'%>
+				<% end %>
+			</td>
+			<td>
+				<%= link_to m.model, motor_path(m), :class => 'ajax cboxElement'%>
+			</td>
+			<td>
+				<%= m.power %>
+			</td>
+			<td>
+				<%= m.weight %>
+			</td>
+			<td>
+				<%= m.fuel_tank %>
+			</td>
+			<td>
+				381
+			</td>
+			<td>
+				<%= number_to_currency(m.price, :delimiter => ' ', :unit => 'р.', :format => "%n %u", :precision => 0) %>
+			</td>
+			<td>
+				<strong><%= link_to "Добавить в корзину", add_to_cart_path(:item_id => m.id, :item_type => 'Motor'), :remote => true %></strong>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+</div>

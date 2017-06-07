@@ -1,0 +1,9 @@
+<h2>Новый поставщик</h2>
+
+<%= form_for @vendor, :url => admin_vendors_path do |f| -%>
+  <p>
+  	<%= f.label :title, 'Название' %>
+  	<%= f.text_field :title %>
+  </p>
+  <%= f.submit "Сохранить" %> или <%= link_to 'Отменить', admin_vendors_path %>
+<% end -%>

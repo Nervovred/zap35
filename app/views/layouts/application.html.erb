@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <meta name="keywords" content="" />
+      <meta name="description" content="" />
+      <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+      <%= favicon_link_tag %>
+	<title><% if @title %><%= @title + ' - ' %><% end %>Запчасти 35 - Автозапчасти, лодочные моторы в Вологде и с доставкой в другие регионы</title>
+	<%= include_gon %>
+	<%= stylesheet_link_tag "application", "validationEngine.jquery", "colorbox", "pagination", "flash_dance.alerts.bootstrap", "jquery-ui", "jquery-ui.structure", "jquery-ui.theme"  %>
+	<%= javascript_include_tag :application %>
+  </head>
+  <body>
+  <!-- 
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+	-->
+	<div id="bg">
+		<div id="outer">
+			<div id="userbar_container">
+				<div id="userbar">
+					<% if current_user %>
+						<span class='pull_left'>
+							<strong>Здравствуйте, <%= current_user.name %>!</strong>
+						</span>
+						<span class="pull_left" id="cart_span">
+							<strong><%= render :partial => '/common/cart_header' %></strong>
+							<span id="search">
+								<label for="search_input">Поиск</label>
+								<%= form_tag global_search_url, :style => 'display:inline;' do %>
+									<%= text_field_tag 'search_input', "" %>
+									<%= submit_tag 'Найти' %>
+								<% end %>
+							</span>
+						</span>
+						<span class="pull_right"><%= link_to "Выход", logout_path %></span>
+					<% else %>
+						<span class="pull_left" id="cart_span">
+							<strong><%= render :partial => '/common/cart_header' %></strong>
+							<span id="search">
+								<label for="search_input">Поиск</label>
+								<%= form_tag global_search_url, :style => 'display:inline;' do %>
+									<%= text_field_tag 'search_input', "" %>
+									<%= submit_tag 'Найти' %>
+								<% end %>
+							</span>
+						</span>
+						<span class='pull_right'>
+							<%= link_to 'Вход', login_path %> / <%= link_to 'Регистрация', signup_path %>
+						</span>
+					<% end %>
+				</div>
+			</div>
+			<div id="header">
+				<div id="logo">
+					<h1>
+						<a href="/"><%= image_tag 'logo3.png', :style => 'float:left;'%> Запчасти 35</a>
+					</h1>
+				</div>
+				<a class ="cart_sprite" id="cart-icon" href="/cart" title="Корзина">
+				</a>
+				<div id="cart_count_wrap">
+					<%= render :partial => '/common/cart' %>
+				</div>
+				<div id="phones">
+					(8172) 75-93-73<br/>
+					(911) 512-08-20<br/>
+				</div>
+				<div id="address">г.Вологда, ул. Первомайская д.35</div>
+				<%= render :partial => 'layouts/menu' -%>
+			</div>
+			<% if !is_current?('zapchasti').empty? %>
+				<%= render :partial => 'layouts/zapchasti_submenu' %>
+			<% elsif !is_current?('lodochnie_motory').empty? %>
+				<%= render :partial => 'layouts/motory_submenu' %>
+			<% elsif !is_current?('lodki').empty? %>
+				<%= render :partial => 'layouts/lodki_submenu' %>
+			<% end %>
+			<div id="main">
+				<%= render :partial => 'layouts/offers' %>
+				<%= render_flash_messages %>
+				<div id="content">
+					<%= yield %>
+					<br class="clear" />
+				</div>
+				<br class="clear" />
+			</div>
+		</div>
+		<div id="copyright">
+			&copy; zapchasti35.ru, 2013-2015
+		</div>
+	</div>
+  <%= yield :javascript %>
+		<script>
+			$(function(){
+				$('#nav').naviDropDown({
+				  dropDownWidth: '300px',
+				  slideDownDuration: 300, //easing duration for slideDown
+					slideUpDuration: 300
+				});
+				$('#nav > ul > li').hover(function(){
+					$(this).addClass('active')
+				},function(){
+					$(this).removeClass('active');
+				});
+				$('.ajax').colorbox();
+			});
+		</script>
+		<%= render :partial => 'layouts/metrika' %>
+		<%= render :partial => 'layouts/analytics' %>
+  </body>
+</html>

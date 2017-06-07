@@ -1,0 +1,17 @@
+<h2>Редактирование прайса</h2>
+
+<%= form_for @price, :url => admin_price_path(@price), :method => :put, :html => {:multipart => true} do |f| -%>
+  <p>
+  	<%= f.label :vendor_id, 'Поставщик' %>
+  	<%= f.collection_select :vendor_id, Vendor.all, :id, :title %>
+  </p>
+  <p>
+  	<%= f.label :part_category_id, 'Категория' %>
+  	<%= f.collection_select :part_category_id, PartCategory.all, :id, :title %>
+  </p>
+	<p>
+		<%= f.label :price_file, 'Прайс' %>
+		<%= f.file_field :price_file%>
+	</p>
+  <%= f.submit "Сохранить" %> или <%= link_to 'Отменить', admin_prices_path %>
+<% end -%>

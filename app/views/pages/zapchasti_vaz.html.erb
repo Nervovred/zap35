@@ -1,0 +1,32 @@
+<h1>Запчасти ВАЗ</h1>
+<p>
+<%= form_tag request.path, :method => 'get' do %>
+  <%= content_tag :label do %>
+    Поиск:
+    <%= text_field_tag :search, params[:search] %>
+  <% end %>
+  <%= submit_tag 'Искать' %>
+<% end %>
+</p>
+<table id='parts'>
+	<thead>
+		<tr>
+			<th>Наименование</th>
+			<th>Единица</th>
+			<th>Цена, руб.</th>
+      <th>&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @parts.each do |part| %>
+			<tr>
+				<td class='title'><%= part.title %></td>
+				<td><%= part.dimension %></td>
+				<td><%= part.sell_price %></td>
+        <td><%= link_to "Добавить в корзину", add_to_cart_path(:item_id => part.id, :item_type => 'Part'), :remote => true, :rel => 'nofollow' %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<%= will_paginate @parts, :class => 'digg_pagination', :previous_label => "« Назад", :next_label => "Вперед »" %>

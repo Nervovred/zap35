@@ -1,0 +1,90 @@
+<h1>Оформление заказа</h1>
+
+<div id="cart">
+  <table class="cart_table">
+  <tr>
+    <th>Наименование</th>
+    <th>Цена</th>
+    <th>Количество</th>
+    <th>Сумма</th>
+  </tr>
+  <% @cart.cart_items.each do |ci|%>
+    <tr id="cart_item-tr-<%=ci.id%>">
+      <td class="title"><%= ci.cartable.cart_item_title %></td>
+      <td class="price"><%= number_to_currency(ci.price, :delimiter => ' ', :unit => 'р.', :format => "%n %u", :precision => 0) %></td>
+      <td class="quantity" id="cart_item-td-<%=ci.id%>"><%= ci.quantity %></td>
+      <td class="sum" id='cart_item-total-<%=ci.id%>'><%= render :partial => '/cart/cart_item_total', :locals => {:ci => ci} %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td colspan="3"><strong>Итого</strong></td>
+    <td id="total_sum"><%= number_to_currency(@cart.total_sum, :delimiter => ' ', :unit => 'р.', :format => "%n %u", :precision => 0) %></td>
+  </tr>
+  </table>
+</div>
+
+<%= form_for @checkout, :url => complete_checkout_path do |f| %>
+
+<h2>Предпочтительный способ оплаты</h2>
+
+<ul id="payment_methods">
+  <% @payment_methods.each do |pm| %>
+    <li><%= radio_button "checkout", "payment_method_id", pm.id%><%= label_tag "checkout[payment_method_id_#{pm.id}]", pm.title %></li>
+  <% end %>
+</ul>
+
+<h2>Предпочтительный способ доставки</h2>
+
+<ul id="payment_methods">
+  <% @delivery_methods.each do |pm| %>
+    <li><%= radio_button "checkout", "delivery_method_id", pm.id%><%= label_tag "checkout[delivery_method_id_#{pm.id}]", pm.title %></li>
+  <% end %>
+</ul>
+
+<% if current_user.nil? %>
+
+  <div class="left_column_form">
+    <div class="form_row">
+      <div class="form_label">
+        <%= f.label :name, "Имя" %>
+      </div>
+      <div class="form_field">
+        <%= f.text_field :name, :class => 'validate[required]' %>
+      </div>
+    </div>
+    <div class="form_row">
+      <div class="form_label">
+        <%= f.label :phone, "Телефон" %>
+      </div>
+      <div class="form_field">
+        <%= f.text_field :phone, :class => 'validate[required]' %>
+      </div>
+    </div>
+    <div class="form_row">
+      <div class="form_label">
+        <%= f.label :email, "Email" %>
+      </div>
+      <div class="form_field">
+        <%= f.text_field :email, :class => 'validate[required, custom[email]]' %>
+      </div>
+    </div>
+  </div>
+
+  <%= content_for :javascript do %>
+  <script>
+    $(function(){
+      $('#new_checkout').validationEngine('attach', {promptPosition: 'centerRight'});
+      })
+  </script>
+  <% end %>
+<% end %>
+
+<div class="left_column_form">
+  <div class="form_row">
+    <div class="centered_submit">
+      <%= link_to 'Назад в корзину', cart_path %> <%= submit_tag "Оформить!" %>
+    </div>
+  </div>
+</div>
+
+<% end %>

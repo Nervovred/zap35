@@ -1,0 +1,22 @@
+<div class="colorbox_content">
+<div class="colorbox_heading"><h1>Лодочный мотор <%=motor.motor_category.title%> <%=motor.model %></h1>
+<div class="colobox_picture"><%= image_tag motor.images[0].picture.url(:high), :style => 'width:350px;' %></div>
+<div class="colorbox_description">
+	<div class="colorbox_text_left">
+		Мощность, л.с.
+	</div>
+	<div class="colorbox_text_right">
+		<%= motor.power %>
+	</div>
+	<% @motor.motor_category.options_order.each do |k| %>
+		<div class="colorbox_text_left">
+			<%= @motor.motor_category.human_names[k] %>
+		</div>
+		<div class="colorbox_text_right">
+			<%= raw @motor.options[k] %>
+		</div>
+	<% end %>
+</div>
+<br class="clear" />
+<div class="colorbox_heading"><h1><%= number_to_currency(motor.price, :delimiter => ' ', :unit => 'р.', :format => "%n %u", :precision => 0) %></h1></div>
+</div>

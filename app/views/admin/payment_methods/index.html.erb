@@ -1,0 +1,21 @@
+<h1>Способы оплаты</h1>
+
+<table id="payment_methods">
+  <thead>
+    <tr>
+      <th>Название</td>
+      <th colspan="3">Действия</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @payment_methods.each do |dm| %>
+      <%= content_tag_for(:tr, dm) do %>
+        <td><%= dm.title %></td>
+        <td><%= link_to 'Просмотр', admin_payment_method_path(dm) %></td>
+        <td><%= link_to 'Изменить', edit_admin_payment_method_path(dm) %></td>
+        <td><%= link_to 'Удалить', admin_payment_method_path(dm), :method => :delete, :confirm => 'Вы уверены?' %></td>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Добавить', new_admin_payment_method_path %>

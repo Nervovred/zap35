@@ -1,0 +1,39 @@
+<div id="nav">
+	<ul>
+		<%= content_tag(:li, :class => is_root?(request)) do %>
+			<%= link_to("Главная", "/", :id => "") %>
+		<% end %>
+		<%= content_tag(:li, :class => is_current?('zapchasti')) do %>
+			<%= link_to("Запчасти", "/zapchasti", :id => 'zapchasti', :class => is_current?('zapchasti')) %>
+			<% if is_current?("zapchasti").empty? %>
+				<div class="dropdown">
+					<%= content_tag :p ,(link_to 'Для иномарок', '/zapchasti_dlya_inomarok', :class => is_current?('zapchasti_dlya_inomarok')) %>
+					<%= content_tag :p ,(link_to 'Для лодочных моторов', '/zapchasti_dlya_lodochnih_motorov', :class => is_current?('zapchasti_dlya_lodochnih_motorov')) %>
+					<%= content_tag :p ,(link_to 'Для китайских автобусов', '/zapchasti_dlya_kitaiskih_avtobusov', :class => is_current?('zapchasti_dlya_kitaiskih_avtobusov')) %>
+				</div>
+			<% end %>
+		<% end %>
+		<%= content_tag(:li, {:id => 'lodochnie_motory', :class => is_current?('lodochnie_motory')}) do %>
+			<%= link_to "Лодочные моторы", "/lodochnie_motory" %>
+			<% if is_current?("lodochnie_motory").empty? %>
+				<div class="dropdown">
+					<%= content_tag :p ,(link_to 'Лодочные моторы SEA-PRO', '/lodochnie_motory/sea_pro', :class => is_current?('lodochnie_motory/sea_pro')) %>
+					<%= content_tag :p ,(link_to 'Лодочные моторы Marlin', '/lodochnie_motory/marlin', :class => is_current?('lodochnie_motory/marlin')) %>
+				</div>
+			<% end %>
+		<% end %>
+		<%= content_tag(:li, :class => is_current?('lodki')) do %>
+			<%= link_to("Лодки", "/lodki", :id => 'lodki', :class => is_current?('lodki')) %>
+			<% if is_current?("lodki").empty? %>
+				<div class="dropdown">
+					<% BoatCategory.order("position").each do |bc| %>
+						<%= content_tag :p ,(link_to bc.menu_title, "/lodki/#{bc.url_title}", :class => is_current?(bc.url_title)) %>
+					<% end %>
+				</div>
+			<% end %>
+		<% end %>		
+		<%= content_tag(:li, link_to("Оплата", "/oplata", :id => "oplata"), :class => is_current?('oplata')) %>		
+		<%= content_tag(:li, link_to("Доставка", "/dostavka", :id => "dostavka"), :class => is_current?('dostavka')) %>		
+		<%= content_tag(:li, link_to("О нас", "/o_nas", :id => "o_nas"), :class => is_current?('o_nas')) %>		
+	</ul>
+</div>

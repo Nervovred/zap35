@@ -1,0 +1,17 @@
+<div id="options">
+	<div class="left_column_form">
+		<div class="form_row">
+			<div class="form_label">
+				<%= label_tag 'order_content', 'Подробности' %>
+			</div>
+			<div class="form_field">
+				<%= text_area_tag 'order[content]', @order.content, :style => 'height:300px;' %>
+			</div>					
+		</div>
+	</div>
+	<div id="disclaimer">
+		Не нашли нужный пункт в списке?<br/>
+		Напишите заявку в свободной форме!
+	</div>
+	<div class"clear"></div>
+</div>
